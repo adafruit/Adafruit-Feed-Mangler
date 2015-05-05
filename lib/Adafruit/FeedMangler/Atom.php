@@ -31,8 +31,22 @@ class Atom {
       if (isset($result['updated']))
         $item->setDate( date('r', $result['updated']) );
 
+      $content_text = '';
+
       if (isset($result['description']))
-        $item->setContent($result['description']);
+        $content_text .= $result['description'];
+
+      if (isset($result['skulls'])) {
+        $s = $result['skulls'];
+        if ($s > 100)
+          $content_text .= "<p>☠ x {$s}</p>";
+        elseif ($s > 0)
+          $content_text .= "<p>" . str_repeat('☠', $s);
+      }
+          
+
+      if (strlen($content_text))
+        $item->setContent($content_text);
 
       if (isset($result['summary']))
         $item->setTitle($result['summary']);
