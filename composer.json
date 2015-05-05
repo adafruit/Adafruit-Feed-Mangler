@@ -1,10 +1,23 @@
 {
-    "name": "brennen/hackaday-feed",
+    "name": "adafruit/adafruit-feed-mangler",
+    "description": "A tool for turning some data out of APIs into Atom feeds.",
+    "authors": [
+    {
+        "name": "Brennen Bearnes",
+        "email": "bbearnes@gmail.com"
+    }
+    ],
+    "autoload": {
+      "psr-0" : {
+        "Adafruit" : "lib/"
+      }
+    },
     "require": {
         "fkooman/guzzle-bearer-auth-plugin": "dev-master",
         "fkooman/oauth-client": "dev-master",
         "doctrine/cache": "dev-master",
         "sparkfun/sparklib": "dev-master",
-        "mibe/feedwriter": "dev-master"
+        "mibe/feedwriter": "dev-master",
+        "slim/slim": "^2.6"
     }
 }
