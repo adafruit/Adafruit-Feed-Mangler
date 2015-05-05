@@ -11,7 +11,7 @@ class Mangler {
       'api_key'     => API_KEY,
       'search_term' => $term,
     ]);
-    $search_url = 'https://api.hackaday.io/v1/search?' . $query;
+    $search_url = 'https://api.hackaday.io/v1/search/projects?' . $query;
 
     $raw_search_json = self::getOrSetCache("search-{$term}", function () use ($search_url) {
       return file_get_contents($search_url);
@@ -26,7 +26,7 @@ class Mangler {
    */
   protected static function getOrSetCache ($key, $callback, $expire = 600) {
     $cache = new FilesystemCache('/tmp');
-    $cache->setNamespace('hackaday_api_cache');
+    $cache->setNamespace('hackaday_projects');
 
     // Juuuuuuust in case anyone gets clever with input - I don't know that I
     // especially trust this cache implementation not to dump user input onto the

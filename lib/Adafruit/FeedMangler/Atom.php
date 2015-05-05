@@ -8,8 +8,8 @@ class Atom {
   public static function searchResults ($term) {
     $search_data = Mangler::getSearchData($term);
 
-    if (array_key_exists('results', $search_data))
-      $results = $search_data['results'];
+    if (array_key_exists('projects', $search_data))
+      $results = $search_data['projects'];
     else
       $results = [];
 
