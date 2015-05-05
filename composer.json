@@ -1,0 +1,10 @@
+{
+    "name": "brennen/hackaday-feed",
+    "require": {
+        "fkooman/guzzle-bearer-auth-plugin": "dev-master",
+        "fkooman/oauth-client": "dev-master",
+        "doctrine/cache": "dev-master",
+        "sparkfun/sparklib": "dev-master",
+        "mibe/feedwriter": "dev-master"
+    }
+}
