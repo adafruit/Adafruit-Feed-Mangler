@@ -22,6 +22,7 @@ class Atom {
     $feed->setSelfLink(APPLICATION_URL);
 
     foreach ($results as $result) {
+      // print_r($result);
       $item = $feed->createNewItem();
       $item->setAuthor('foo');
 
@@ -31,25 +32,27 @@ class Atom {
       if (isset($result['updated']))
         $item->setDate( date('r', $result['updated']) );
 
-      $content_text = '';
+      $content_html = '';
+
+      if (isset($result['summary']))
+        $content_html .= '<p><i>' . $result['summary'] . '</i></p>';
 
       if (isset($result['description']))
-        $content_text .= $result['description'];
+        $content_html .= '<p>' . nl2br($result['description']) . '</p>';
 
       if (isset($result['skulls'])) {
         $s = $result['skulls'];
         if ($s > 100)
-          $content_text .= "<p>☠ x {$s}</p>";
+          $content_html .= "<p>☠ x {$s}</p>";
         elseif ($s > 0)
-          $content_text .= "<p>" . str_repeat('☠', $s);
+          $content_html .= "<p>" . str_repeat('☠', $s);
       }
-          
 
-      if (strlen($content_text))
-        $item->setContent($content_text);
+      if (strlen($content_html))
+        $item->setContent($content_html);
 
-      if (isset($result['summary']))
-        $item->setTitle($result['summary']);
+      if (isset($result['name']))
+        $item->setTitle($result['name']);
 
       $feed->addItem($item);
     }
