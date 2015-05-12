@@ -8,10 +8,10 @@ class Atom {
   public static function searchResults ($term) {
     $search_data = Mangler::getSearchData($term);
 
+    $results = [];
     if (array_key_exists('projects', $search_data))
-      $results = $search_data['projects'];
-    else
-      $results = [];
+      if (is_array($search_data['projects']))
+        $results = $search_data['projects'];
 
     $feed = new \FeedWriter\ATOM;
     $feed->setTitle('Hackaday IO - ' . $term);
@@ -26,8 +26,12 @@ class Atom {
       $item = $feed->createNewItem();
       $item->setAuthor('foo');
 
-      if (isset($result['url']))
+      if (isset($result['url'])) {
         $item->setLink($result['url']);
+      } else {
+        // skip because why don't you have a url argh
+        continue;
+      }
 
       if (isset($result['updated']))
         $item->setDate( date('r', $result['updated']) );

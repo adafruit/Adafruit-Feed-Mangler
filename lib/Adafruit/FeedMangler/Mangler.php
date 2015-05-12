@@ -26,7 +26,7 @@ class Mangler {
    */
   protected static function getOrSetCache ($key, $callback, $expire = 600) {
     $cache = new FilesystemCache('/tmp');
-    $cache->setNamespace('hackaday_projects');
+    $cache->setNamespace('hackaday_projecten');
 
     // Juuuuuuust in case anyone gets clever with input - I don't know that I
     // especially trust this cache implementation not to dump user input onto the
