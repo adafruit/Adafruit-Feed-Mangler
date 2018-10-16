@@ -5,7 +5,13 @@ use \Doctrine\Common\Cache\FilesystemCache;
 
 class Mangler {
 
-  public static function getSearchData ($term) {
+  public static function getSearchData ($term)
+  {
+    return json_decode(self::getSearchJson($term), true /* use assoc array */);
+  }
+
+  public static function getSearchJson ($term)
+  {
     // example: https://api.hackaday.io/v1/search?api_key=7yRgvQsCczOev&search_term=test
     $query = http_build_query([
       'api_key'     => API_KEY,
@@ -17,14 +23,15 @@ class Mangler {
       return file_get_contents($search_url);
     });
 
-    return json_decode($raw_search_json, true /* use assoc array */);
+    return $raw_search_json;
   }
 
   /**
    * Get a cached value by key, or stash the value returned from $callback
    * under that key and return it.
    */
-  protected static function getOrSetCache ($key, $callback, $expire = 600) {
+  protected static function getOrSetCache ($key, $callback, $expire = 600)
+  {
     $cache = new FilesystemCache('/tmp');
     $cache->setNamespace('hackaday_projecten');
 
